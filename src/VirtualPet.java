@@ -3,8 +3,8 @@ import java.util.Random;
 public class VirtualPet {
 
 		String name;
-		int hunger = 75;
-		int thirst = 15;
+		int hunger = 65;
+		int thirst = 25;
 		int rage = 40;
 		int ennui = 25;
 		int fatigue = 10;
@@ -13,48 +13,78 @@ public class VirtualPet {
 		int level = 1;
 		
 		
-		void rename(String name) {
-			name = this.name;
-		}
+		/*********************
+		 * General Modifiers
+		 ********************/
 		
 		String sayName() {
 			return name;
 		}
 		
 		void feed() {
-			hunger -= 45;
-			rage += 20;
-			fatigue += 20;
+			hunger -= 50;
+			rage += 10;
+			fatigue += 5;
 		} 
 		
 		void drink() {
-			thirst -= 60;
-			fatigue += 15;
+			thirst -= 50;
+			fatigue += 5;
+			
 		}
 		
 		void play() {
-			rage -= 30;
-			fatigue += 20;
+			rage -= 40;
+			ennui -= 20;
+			fatigue += 5;
+			hunger += 5;
+			thirst += 5;
 		}
 		
 		void think() {
 			ennui -= 40;
+			rage -= 10;
 			fatigue += 10;
+			hunger += 5;
 		}
 			
 		void sleep() {
-			fatigue -= 90;
+			fatigue -= 50;
+			hunger += 5;
+			thirst += 5;
+			rage -= 15;
+		}
+		
+		/*********************
+		 * Leveling Mechanics
+		 *********************/
+		
+		int displayLevel() {
+			return level;
+		}
+		
+		void levelUp() {
+			growth = 1;
+			level++;
+		}
+		
+		boolean isCapped()  {
+			return growth > 9;
+		}
+		
+		void grow() {
+			growth++;
 		}
 		
 		/*****************
 		 * Boolean Tests
 		 ******************/
 		boolean isHungry() {
-			return hunger >= 60;
+			return hunger >= 50;
 		}
 		
 		boolean isThirsty() {
-			return thirst >= 60;
+			return thirst >= 50;
 		}
 		
 		boolean isAngry() {
@@ -62,11 +92,11 @@ public class VirtualPet {
 		}
 	
 		boolean isEnnui() {
-			return ennui >= 60;
+			return ennui >= 50;
 		}
 		
 		boolean isTired() {
-			return fatigue >= 65;
+			return fatigue >= 60;
 		}
 		
 		/********************
@@ -96,13 +126,16 @@ public class VirtualPet {
 		 * Tick()
 		 ****************/
 		Random rand = new Random();
-		int n = rand.nextInt(20) + 1;
+		int n = rand.nextInt(12) + 1;
+		int i = rand.nextInt(10) + 1;
+		int m = rand.nextInt(9) + 1;
+		
 		
 		void tick() {
-			hunger += n;
+			hunger += i;
 			thirst += n;
-			ennui += n;
-			rage += n;	
+			ennui += i;
+			rage += m;	
 		}
 		
 } // end VirtualPet
